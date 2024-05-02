@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Начальня страница</title>
+    <style>
+        * {
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .line {
+            width: 100%;
+            border-bottom: 2px solid black;
+        }
+
+        .buttons {
+            margin-bottom: 20px;
+
+            display: inline-block;
+        }
+        .buttons-container {
+        text-align: right;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="buttons-container">
+        <div class="buttons">
+            <button onclick="alert('Открывается окно для регистрации')">Регистрация</button>
+            <button onclick="openLoginForm()">Вход</button>
+        </div>
+    </div>
+    <script>
+    function openLoginForm() {
+        // Открываем форму входа
+        document.getElementById('loginForm').style.display = 'block';
+    }
+    </script>
+
+    <div id="loginForm" style="display: none;">
+        <h2>Форма для входа</h2>
+        <input type="text" placeholder="Логин"><br>
+        <input type="password" placeholder="Пароль"><br>
+        <button onclick="redirectToDashboard()">Войти</button>
+    </div>
+
+    <div class="header">
+        <h1 style="font-size: 40px;">НАЗВАНИЕ САЙТА</h1>
+        <div class="line"></div>
+        <p>ИНТЕГРИРОВАННАЯ СРЕДА РАЗРАБОТКИ</p>
+    </div>
+    <script>
+        function redirectToDashboard() {
+            window.location.href = "/dashboard";
+        }
+    </script>
+</body>
+</html>
