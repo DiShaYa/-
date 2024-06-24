@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление курса</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .line {
+            width: 100%;
+            border-bottom: 2px solid black;
+        }
+
+        .buttons-container {
+            text-align: right;
+        }
+
+        .h1 {
+            font-weight: bold
+        }
+
+        @font-face {
+            font-family: 'Adys'; /* Название шрифта */
+            src: url('/static/fonts/adys_regular.ttf') format('truetype'); /* Путь к файлу шрифта и формат */
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'Adys', sans-serif;
+            font-size: 16px;
+            background-color: #FEFAF9;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        #popup {
+            position: absolute; /* Абсолютное положение */
+            background-color: #f9f9f9; /* Светлый фон */
+            border: 1px solid #ccc; /* Серый бордюр */
+            padding: 20px; /* Отступы */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для объема */
+            border-radius: 10px; /* Скругленные углы */
+            display: none; /* Скрыто по умолчанию */
+            z-index: 1000; /* Высокий z-index для поверхностного отображения */
+            max-width: 200px; /* Ограничение по ширине */
+            text-align: center; /* Выравнивание текста по центру */
+            top: calc(100% + 10px); /* Отступ снизу на 10px от родительского контейнера */
+            left: 50%; /* Положение по горизонтали в центре */
+            transform: translateX(-50%); /* Центрирование по горизонтали */
+        }
+
+        .buttons {
+            display: flex; /* Используем flexbox */
+            flex-wrap: wrap; /* Разрешаем перенос строк */
+            gap: 10px; /* Отступы между кнопками */
+            justify-content: center; /* Выравнивание по центру */
+            margin-top: 20px; /* Отступ сверху */
+        }
+
+        .buttons button {
+            background-color: #6751B5; /* Синий фон */
+            color: white; /* Белый текст */
+            border: none; /* Без границ */
+            padding: 10px; /* Отступы внутри кнопок */
+            cursor: pointer; /* Курсор руки при наведении */
+            font-size: 16px; /* Размер текста */
+            border-radius: 5px; /* Скругленные углы */
+            transition: background-color 0.3s; /* Плавный переход цвета фона */
+            width: 130px; /* Ширина кнопок */
+            height: 40px; /* Высота кнопок, чтобы они были квадратными */
+        }
+
+        .buttons button:hover {
+            background-color: #4E3D89; /* Темно-синий при наведении */
+        }
+
+        .dynamic-field {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .dynamic-field label {
+            min-width: 200px;
+            text-align: left;
+            margin-right: 10px;
+        }
+
+        .dynamic-field input,
+        .dynamic-field textarea {
+            flex: 1;
+            max-width: 500px;
+            min-width: 500px;
+        }
+
+
+        #dynamicFieldsContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        #courseDescription {
+            height: 150px; /* увеличиваем высоту для описания */
+        }
+
+        #courseFieldsContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .custom-placeholder::placeholder {
+            color: rgba(0, 0, 0, 0.2); /* Меняем цвет и прозрачность */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Добавление курса</h1>
+        <form id="createCourseForm" method="POST" action="/create_course">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+            <div id="courseFieldsContainer">
+                <div class="dynamic-field">
+                    <label for="courseName">Название курса:</label>
+                    <input type="text" class="custom-placeholder" id="courseName" name="courseName" placeholder="Введение в квантовые вычисления">
+                </div>
+                <div class="dynamic-field">
+                    <label for="courseDescription">Описание курса:</label>
+                    <textarea id="courseDescription" class="custom-placeholder" name="courseDescription" placeholder="Этот курс охватывает основы квантовых вычислений, включая..."></textarea>
+                    <button id="showPopup" class="btn btn-outline-dark" style="align-self: flex-start; font-family: Montserrat; font-size: 16px; margin-left: 20px; margin-bottom: 10px; width: 500px">Добавить элемент</button>
+                </div>
+                <div id="popup">
+                    <label style="font-size:18px">Выберите элемент:</label>
+                    <div class="buttons">
+                        <button type="button" class="add-field-btn" data-field="equipments">Оборудование</button>
+                        <button type="button" class="add-field-btn" data-field="language">Язык</button>
+                        <button type="button" class="add-field-btn" data-field="difficulty">Сложность</button>
+                        <button type="button" class="add-field-btn" data-field="duration">Время прохождения</button>
+                        <button type="button" class="add-field-btn" data-field="initial_requirements">Начальные знания</button>
+                    </div>
+                </div>
+                <div id="dynamicFieldsContainer" class="d-flex flex-column align-items-center"></div>
+                <button class="btn btn-outline-dark" type="submit" style="font-family: Montserrat; font-size: 18px;">Создать курс</button>
+            </div>
+        </form>
+    </div>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top" style="padding-left: 110px; padding-right: 110px;">
+        <div class="col-md-6 d-flex align-items-center">
+            <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Diane Shay</span>
+        </div>
+        <div class="col-md-6 d-flex justify-content-end">
+            <ul class="nav list-unstyled d-flex">
+                <li class="nav-item">
+                    <button id="supportButton" class="btn btn-outline-dark" style="margin-left: 20px; margin-right: 20px">Поддержка</button>
+                </li>
+                <li class="nav-item">
+                    <a href="https://github.com/DiShaYa/vkr-iintegrated-development-environment-for-educational-systems-.git" class="btn btn-dark">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </footer>
+    <script>
+         document.getElementById('supportButton').onclick = function() {
+            document.getElementById('supportModal').style.display = "block";
+        }
+
+        document.getElementsByClassName('close')[0].onclick = function() {
+            document.getElementById('supportModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('supportModal')) {
+                document.getElementById('supportModal').style.display = "none";
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var popupVisible = false;
+
+            document.getElementById('showPopup').addEventListener('click', function(event) {
+                event.preventDefault();
+                var popup = document.getElementById('popup');
+                var buttonRect = this.getBoundingClientRect();
+
+                if (!popupVisible) {
+                    popup.style.display = 'block';
+                    popup.style.left = buttonRect.left + 100+ 'px'; // Положение по горизонтали
+                    popup.style.top = buttonRect.bottom + 10 + 'px'; // Снизу кнопки с отступом 10px
+                    popupVisible = true;
+                } else {
+                    popup.style.display = 'none';
+                    popupVisible = false;
+                }
+            });
+
+            const fieldTemplates = {
+                equipments: `<div class="dynamic-field" id="equipments-field">
+                                <label for="equipments">Оборудование:</label>
+                                <input type="text" id="equipments" name="equipments" placeholder="Эмулятор квантового компьютера" class="custom-placeholder">
+                            </div>`,
+                language: `<div class="dynamic-field" id="language-field">
+                               <label for="language">Язык:</label>
+                               <input type="text" id="language" name="language" placeholder="Русский" class="custom-placeholder">
+                           </div>`,
+                difficulty: `<div class="dynamic-field" id="difficulty-field">
+                                 <label for="difficulty">Сложность:</label>
+                                 <input type="text" id="difficulty" name="difficulty" placeholder="Для новичков" class="custom-placeholder">
+                             </div>`,
+                duration: `<div class="dynamic-field" id="duration-field">
+                               <label for="duration">Время прохождения:</label>
+                               <input type="text" id="duration" name="duration" placeholder="5 часов" class="custom-placeholder">
+                           </div>`,
+                initial_requirements: `<div class="dynamic-field" id="initial_requirements-field">
+                                        <label for="initial_requirements">Начальные знания:</label>
+                                        <input type="text" id="initial_requirements" name="initial_requirements" placeholder="Основы алгебры" class="custom-placeholder">
+                                    </div>`
+            };
+
+            // Обработчик кликов по кнопкам в popup
+            document.querySelectorAll('.add-field-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const fieldKey = this.getAttribute('data-field');
+                    const container = document.getElementById('dynamicFieldsContainer');
+
+                    // Проверяем, существует ли поле уже в форме
+                    if (!document.getElementById(fieldKey + '-field')) {
+                        const fieldHtml = fieldTemplates[fieldKey];
+                        container.insertAdjacentHTML('beforeend', fieldHtml);
+                    }
+
+                    // Скрываем popup после выбора элемента
+                    document.getElementById('popup').style.display = 'none';
+                    popupVisible = false;
+                });
+            });
+        });
+
+
+    </script>
+</body>
+</html>

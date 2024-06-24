@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Twilio Video</title>
+    <script src="https://media.twiliocdn.com/sdk/js/video/releases/2.18.1/twilio-video.min.js"></script>
+</head>
+<body>
+    <h1>Twilio Video</h1>
+    <div id="local-video"></div>
+    <div id="remote-video"></div>
+    <script>
+        async function connectToRoom() {
+            try {
+                const response = await fetch('/token', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ identity: 'user' })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const token = data.token;
+
+                const room = await Twilio.Video.connect(token, { name: 'my-room' });
+
+                const localParticipant = room.localParticipant;
+                localParticipant.videoTracks.forEach(publication => {
+                    const track = publication.track;
+                    const localVideoContainer = document.getElementById('local-video');
+                    localVideoContainer.appendChild(track.attach());
+                });
+
+                room.participants.forEach(participant => {
+                    participant.tracks.forEach(publication => {
+                        if (publication.isSubscribed) {
+                            const track = publication.track;
+                            const remoteVideoContainer = document.getElementById('remote-video');
+                            remoteVideoContainer.appendChild(track.attach());
+                        }
+                    });
+
+                    participant.on('trackSubscribed', track => {
+                        const remoteVideoContainer = document.getElementById('remote-video');
+                        remoteVideoContainer.appendChild(track.attach());
+                    });
+                });
+
+                room.on('participantConnected', participant => {
+                    participant.on('trackSubscribed', track => {
+                        const remoteVideoContainer = document.getElementById('remote-video');
+                        remoteVideoContainer.appendChild(track.attach());
+                    });
+                });
+            } catch (error) {
+                console.error(`Error connecting to room: ${error.message}`);
+            }
+        }
+
+        connectToRoom();
+    </script>
+</body>
+</html>

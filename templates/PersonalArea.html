@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        * {
+            text-align: center;
+            font-size: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .line {
+            width: 100%;
+            border-bottom: 2px solid black;
+        }
+        .buttons {
+            margin-bottom: 20px;
+
+            display: inline-block;
+        }
+        .buttons-container {
+        text-align: right;
+        }
+        .h1 {
+            font-weight: bold
+        }
+        @font-face {
+            font-family: 'Adys'; /* Название шрифта */
+            src: url('/static/fonts/adys_regular.ttf') format('truetype'); /* Путь к файлу шрифта и формат */
+            font-weight: 300;
+            font-style: normal;
+        }
+        body {
+            font-family: 'Adys', sans-serif;
+            font-size: 16px;
+            background-color: #FEFAF9;
+        }
+
+        .profile {
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .profile .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            background-color: #f0f0f0; /* Цвет фона по умолчанию */
+        }
+        .profile .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile .avatar input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .profile input {
+            margin-bottom: 10px;
+        }
+        .course-name-container {
+            height: 50px; /* Установите высоту, которая подходит для ваших карточек */
+            overflow: hidden; /* Скрыть часть названия, которая выходит за пределы контейнера */
+        }
+        .course-name {
+            white-space: nowrap; /* Остановить перенос текста на новую строку */
+            overflow: hidden; /* Скрыть текст, который не помещается внутри контейнера */
+            text-overflow: ellipsis; /* Добавить многоточие для текста, который не помещается в контейнер */
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .course-description {
+            max-height: 4.5em; /* Adjust based on desired height */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Number of lines to show */
+            -webkit-box-orient: vertical;
+        }
+    </style>
+</head>
+<body>
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-0 border-bottom" style="">
+      <div class="col-md-3 mb-2 mb-md-0">
+
+        <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+            <img src="{{ url_for('static', filename='img/Gкrou.png') }}" alt="по" width="208" height="34">
+        </a>
+
+      </div>
+      <div class="col-md-3 text-end">
+        <button type="button" class="btn btn-outline-dark" style=" font-size: 18px;margin-right: 110px;" onclick="window.location.href='{{ url_for('logout') }}'">Выход</button>
+      </div>
+    </header>
+    <div class="profile" action="{{ url_for('personal_area') }}" method="GET">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+        <h2>Личный кабинет</h2>
+        <div class="avatar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+              <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+            </svg>
+            <input type="file" id="avatarInput" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
+        </div>
+        <div>
+            <label for="email">Почта:</label>
+            <input type="email" id="email" value="{{ email }}" disabled>
+            <button onclick="enableEdit('email')">Редактировать</button>
+        </div>
+        <div>
+            <label for="fullName">Полное имя:</label>
+            <input type="text" id="fullName"  value="{{ full_name }}" disabled>
+            <button onclick="enableEdit('fullName')">Редактировать</button>
+        </div>
+        <div>
+            <p>Статус: {{ role }}</p>
+        </div>
+        <div>
+            <p>Организация: {{ institution }}</p>
+        </div>
+    </div>
+    <h3>Ваши курсы:</h3>
+
+    <div class="container">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% if role == 'автор курса' %}
+                {% for course in courses %}
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <a href="{{ url_for('course_detail', name=course.name|url_encode) }}">
+                                {% if course.name == "Основы квантовых вычислений" %}
+                                    <img src="{{ url_for('static', filename='images/courses/20180405-ibm-q-quantum-computer-02.png') }}" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="{{ course.name }}">
+                                {% elif course.name == "Управление изменениями в организации" %}
+                                    <img src="{{ url_for('static', filename='images/courses/ChgMgmt.png') }}" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="{{ course.name }}">
+                                {% else %}
+                                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                        <title>Placeholder</title>
+                                        <rect width="100%" height="100%" fill="#55595c"></rect>
+                                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ course.name }}</text>
+                                    </svg>
+                                {% endif %}
+                            </a>
+                            <div class="card-body">
+                                <div class="course-name-container">
+                                    <p class="card-text course-name">{{ course.name }}</p>
+                                </div>
+                                <p class="card-text course-description">{{ course.description|safe }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a href="{{ url_for('course_detail', name=course.name|url_encode) }}" class="btn btn-sm btn-outline-secondary">Перейти</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="col">
+                    <div class="card shadow-sm" style="background-color: #f8f9fa;">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="#e9ecef"></rect>
+                            <text x="50%" y="50%" fill="#55595c" dy=".3em">+</text>
+                        </svg>
+                        <div class="card-body">
+                            <p class="card-text">Добавить новый курс</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='/add_course'">Добавить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if role == 'учащийся' %}
+                {% for course in courses %}
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <a href="{{ url_for('course_detail', name=course.name|url_encode) }}">
+                                {% if course.name == "Основы квантовых вычислений" %}
+                                    <img src="{{ url_for('static', filename='images/courses/20180405-ibm-q-quantum-computer-02.png') }}" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="{{ course.name }}">
+                                {% elif course.name == "Управление изменениями в организации" %}
+                                    <img src="{{ url_for('static', filename='images/courses/ChgMgmt.png') }}" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="{{ course.name }}">
+                                {% else %}
+                                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                        <title>Placeholder</title>
+                                        <rect width="100%" height="100%" fill="#55595c"></rect>
+                                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ course.name }}</text>
+                                    </svg>
+                                {% endif %}
+                            </a>
+                            <div class="card-body">
+                                <div class="course-name-container">
+                                    <p class="card-text course-name">{{ course.name }}</p>
+                                </div>
+                                <p class="card-text course-description">{{ course.description|safe }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a href="{{ url_for('course_detail', name=course.name|url_encode) }}" class="btn btn-sm btn-outline-secondary">Перейти</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="col">
+                    <div class="card shadow-sm" style="background-color: #f8f9fa;">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="#e9ecef"></rect>
+                            <text x="50%" y="50%" fill="#55595c" dy=".3em">+</text>
+                        </svg>
+                        <div class="card-body">
+                            <p class="card-text">Добавить курс</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('addCourseModal').style.display='block'">Добавить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        {% if role == 'учащийся' %}
+            <div id="addCourseModal" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Введите код курса</h5>
+                            <button type="button" class="close" onclick="document.getElementById('addCourseModal').style.display='none'" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url_for('add_course_by_code') }}" method="post">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                                <div class="form-group">
+                                    <label for="courseCode">Код курса</label>
+                                    <input type="text" class="form-control" id="courseCode" name="courseCode" required>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('addCourseModal').style.display='none'">Отмена</button>
+                                    <button type="submit" class="btn btn-primary">Добавить курс</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div id="supportModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Отправить обращение</h2>
+            <form id="supportForm" method="POST" action="/support">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                <div class="form-group">
+                    <label for="message_sup">Сообщение:</label>
+                    <textarea id="message_sup" name="message_sup" class="form-control" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+        </div>
+    </div>
+    <script>
+         document.getElementById('supportButton').onclick = function() {
+            document.getElementById('supportModal').style.display = "block";
+        }
+
+        document.getElementsByClassName('close')[0].onclick = function() {
+            document.getElementById('supportModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('supportModal')) {
+                document.getElementById('supportModal').style.display = "none";
+            }
+        }
+        function enableEdit(fieldId) {
+            document.getElementById(fieldId).disabled = false;
+        }
+        function redirectToAddCourse() {
+            window.location.href = "/create_course";
+        }
+
+    </script>
+</body>
+</html>

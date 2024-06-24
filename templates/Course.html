@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <title>Информация о курсе</title>
+    <style>
+        video {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        /* Стили для подписей */
+        .video-caption {
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .edit-mode {
+            display: none;
+        }
+        * {
+            text-align: center;
+            font-size: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .line {
+            width: 100%;
+            border-bottom: 2px solid black;
+        }
+        .buttons {
+            margin-bottom: 20px;
+
+            display: inline-block;
+        }
+        .buttons-container {
+        text-align: right;
+        }
+        .h1 {
+            font-weight: bold
+        }
+        @font-face {
+            font-family: 'Adys'; /* Название шрифта */
+            src: url('/static/fonts/adys_regular.ttf') format('truetype'); /* Путь к файлу шрифта и формат */
+            font-weight: 300;
+            font-style: normal;
+        }
+        body {
+            font-family: 'Adys', sans-serif;
+            font-size: 16px;
+            background-color: #FEFAF9;
+            min-height: 100vh; /* Минимальная высота страницы */
+            padding-bottom: 100px; /* Дополнительное пространство внизу */
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1;
+        }
+        .modal {
+          display: none; /* Скрыть модальное окно по умолчанию */
+          position: fixed; /* Фиксированное положение */
+          top: 50%; /* Расположить по вертикали на 50% от верхнего края */
+          left: 50%; /* Расположить по горизонтали на 50% от левого края */
+          transform: translate(-50%, -50%); /* Центрировать по центру экрана */
+
+          z-index: 1; /* На верхнем уровне */
+          padding: 20px; /* Внутренний отступ */
+          background-color: rgba(0,0,0,0.4); /* Черный цвет фона с прозрачностью */
+        }
+
+        .modal-content {
+          background-color: lightsteelblue;
+          max-width: 450px; /* Задать максимальную ширину окна */
+          margin: 15% auto; /* 15% от верхнего и нижнего края */
+          padding: 20px;
+          border: 1px solid #888;
+          width: 80%; /* Ширина модального окна */
+          border-radius: 20px; /* Закругленные углы */
+          text-align: center; /* Центрирование содержимого */
+        }
+
+
+        /* Кастомные стили для кнопок */
+
+        .btn-custom {
+            background: radial-gradient(closest-side, #BFADED,#C0A7FF50, #C0A7FF05 ); /* градиентный фон */
+            color: #fff; /* цвет текста */
+            border: none; /* убираем границу */
+            border-radius: 50px; /* создаем максимально круглые углы */
+            transition: all 0.3s ease; /* плавный переход при наведении */
+            padding: 20px 50px; /* добавляем отступ вокруг текста */
+            font-size: 16pt; /* Размер шрифта в пунктах */
+
+        }
+
+        .btn-custom:hover {
+            transform: scale(1.15); /* немного увеличиваем кнопку при наведении */
+        }
+
+        .btn-current {
+            color:  #FDE97D	;
+            background: radial-gradient(closest-side, #ab9bd5 ,#C0A7FF50, #C0A7FF05 ); /* градиентный фон */
+            border: none; /* убираем границу */
+            border-radius: 50px; /* создаем максимально круглые углы */
+            font-weight: bold; /* делаем текст жирным */
+            transition: all 0.3s ease; /* плавный переход при наведении */
+            padding: 20px 50px; /* добавляем отступ вокруг текста */
+        }
+
+        .btn-current:hover {
+            transform: scale(1.05); /* немного увеличиваем кнопку при наведении */
+        }
+        li {
+            color: #343a40; /* цвет текста */
+            font-size: 14pt; /* Размер шрифта в пунктах */
+        }
+        .topic-block {
+            padding: 15px;
+            margin-bottom: 20px;
+            min-height: 150px; /* Увеличим минимальную высоту блока */
+
+        }
+
+
+
+         .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+
+        .modal {
+          display: none; /* Скрыть модальное окно по умолчанию */
+          position: fixed; /* Фиксированное положение */
+          top: 50%; /* Расположить по вертикали на 50% от верхнего края */
+          left: 50%; /* Расположить по горизонтали на 50% от левого края */
+          transform: translate(-50%, -50%); /* Центрировать по центру экрана */
+
+          z-index: 1; /* На верхнем уровне */
+          padding: 20px; /* Внутренний отступ */
+          background-color: rgba(0,0,0,0.4); /* Черный цвет фона с прозрачностью */
+        }
+
+        .modal-content {
+          background-color: lightsteelblue;
+          max-width: 450px; /* Задать максимальную ширину окна */
+          margin: 15% auto; /* 15% от верхнего и нижнего края */
+          padding: 20px;
+          border: 1px solid #888;
+          width: 80%; /* Ширина модального окна */
+          border-radius: 20px; /* Закругленные углы */
+          text-align: center; /* Центрирование содержимого */
+        }
+
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /* Стили для кнопки "Зарегистрироваться" */
+        .my-button {
+          width: 20%;
+          padding: 10px;
+          margin: 8px 0;
+          border: none;
+          cursor: pointer;
+          background-color: #B385C1;
+          color: white;
+          border-radius: 10px;
+        }
+
+        .my-button:hover {
+          background-color: indigo; /* Цвет при наведении */
+          color: white;
+        }
+        .ch {
+            width: 80%;
+            padding: 10px 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+            background-color: #3a75c4;
+            color: #FFFAF0;
+            border-radius: 8px;
+            border:none;
+            font-size: 16px;
+        }
+        .ch:hover {
+            background-color: #7599c9;
+        }
+        .plus{
+            background-color: #B385C1;
+        }
+        .plus:hover {
+            transform: scale(1.15);
+            background-color: #caa4d6;
+        }
+        .message{
+            background-color: #dce6f4;
+            color: #343a40;
+            padding: 10px;
+            width: fit-content;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .user_message {
+            background-color: #93aac9;
+            margin-left: auto;
+            color: #FFFAF0;
+        }
+        #plot, #plot1 {
+            width: 100%;
+            height: 400px; /* Установите желаемую высоту */
+        }
+
+        .container-fluid .row {
+            margin-bottom: 20px; /* Отступ между строками, если нужно */
+        }
+    </style>
+</head>
+<body>
+  <div class="page">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-0 border-bottom" style="">
+      <div class="col-md-3 mb-2 mb-md-0">
+
+        <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+            <img src="{{ url_for('static', filename='img/Gкrou.png') }}" alt="по" width="208" height="34">
+        </a>
+
+      </div>
+      <div class="col-md-3 text-end">
+        <button type="button" class="btn btn-outline-dark" style=" font-size: 18px;margin-right: 110px;" onclick="window.location.href='{{ url_for('personal_area') }}'">Личный кабинет</button>
+      </div>
+    </header>
+
+
+    <div class="container-fluid" style="background-color: #C0A7FF90; padding-top: 10px; padding-bottom: 10px;">
+        <div class="d-flex justify-content-around">
+            <button type="button" class="btn btn-custom" id="btn-about" onclick="showSection('about', this)">О курсе</button>
+            <button type="button" class="btn btn-custom" id="btn-course" onclick="showSection('course', this)">Курс</button>
+            <button type="button" class="btn btn-custom" id="btn-chat" onclick="showSection('chat', this)">Чат</button>
+            <button type="button" class="btn btn-custom" id="btn-participants" onclick="showSection('participants', this)">Список участников</button>
+            <button type="button" class="btn btn-custom" id="btn-progress" onclick="showSection('progress', this)">Прогресс</button>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div id="about" class="section active">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+
+            {% if current_user in course.authors %}
+                <a style="float: right;margin-top: 15px; margin-right: 15px;padding: 10px 20px; font-size: 14px;border-radius: 5px;" id="edit-about" href="{{ url_for('course_detail', name=course.name|url_encode, edit='true') }}" class="btn btn-sm btn-outline-secondary">Редактировать</a>
+                <button id="save-btn" class="btn btn-sm btn-primary edit-mode" style="display: none;">Сохранить</button>
+                <button id="cancel-btn" class="btn btn-sm btn-secondary edit-mode" style="display: none;">Отмена</button>
+            {% endif %}
+
+            <form method="POST" action="{{ url_for('course_detail', name=course.name) }}" id="edit-form" class="edit-mode" style="display: none;">
+                {{ form.hidden_tag() }}
+                <textarea name="description" id="description">{{ course.description }}</textarea>
+                <div class="form-group">
+                    <label for="equipments">Оборудование</label>
+                    <input type="text" name="equipments" id="equipments" class="form-control" value="{{ course.equipments }}">
+                </div>
+                <div class="form-group">
+                    <label for="language">Язык</label>
+                    <input type="text" name="language" id="language" class="form-control" value="{{ course.language }}">
+                </div>
+                <div class="form-group">
+                    <label for="difficulty">Сложность</label>
+                    <input type="text" name="difficulty" id="difficulty" class="form-control" value="{{ course.difficulty }}">
+                </div>
+                <div class="form-group">
+                    <label for="duration">Продолжительность курса</label>
+                    <input type="text" name="duration" id="duration" class="form-control" value="{{ course.duration }}">
+                </div>
+                <div class="form-group">
+                    <label for="initial_requirements">Начальные требования</label>
+                    <input type="text" name="initial_requirements" id="initial_requirements" class="form-control" value="{{ course.initial_requirements }}">
+                </div>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </form>
+
+            <div id="course-view">
+                <h1 style="font-size: 52px; font-weight: bold; margin-bottom: 10px; text-align: left; color: #343a40" >{{ course.name }}</h1>
+                <div class="row">
+                    <!-- Левая колонка с названием и описанием -->
+
+                    <div class="col-md-8">
+                        <div class="header">
+                            <p>{{ course.description|safe }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Правая колонка с дополнительной информацией -->
+                    <div class="col-md-4">
+                        <div class="info">
+                            <ul style="text-align: left; ">
+                                {% if course.equipments and course.equipments.strip() and course.equipments != 'None' %}
+                                    <li style="margin-bottom: 15px;text-align: left;">Оборудование: {{ course.equipments }}</li>
+                                {% endif %}
+                                {% if course.language and course.language.strip() and course.language != 'None' %}
+                                    <li style="margin-bottom: 15px;text-align: left;">Язык: {{ course.language }}</li>
+                                {% endif %}
+                                {% if course.difficulty and course.difficulty.strip() and course.difficulty != 'None' %}
+                                    <li style="margin-bottom: 15px;text-align: left;">Сложность: {{ course.difficulty }}</li>
+                                {% endif %}
+                                {% if course.duration and course.duration.strip() and course.duration != 'None' %}
+                                    <li style="margin-bottom: 15px;text-align: left;">Время прохождения: {{ course.duration }}</li>
+                                {% endif %}
+                                {% if course.initial_requirements and course.initial_requirements.strip() and course.initial_requirements != 'None' %}
+                                    <li style="margin-bottom: 15px;text-align: left;">Начальные знания: {{ course.initial_requirements }}</li>
+                                {% endif %}
+                            </ul>
+                            <h2 style="font-size: 18px; font-weight: bold; margin-top: 20px; text-align: left;">Авторы курса:</h2>
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                {% for author, institutions in author_details %}
+                                    <li>
+                                        {{ author.name }}
+                                        {% if institutions %}
+                                            ({{ institutions|map(attribute='name')|join(', ') }})
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                                {% if institutions %}
+                                    <h2 style="font-size: 18px; font-weight: bold; margin-top: 20px; text-align: left;">Организация:</h2>
+                                    <ul style="list-style-type: none; padding-left: 0;">
+                                        {% for institution in institutions %}
+                                            <li>{{ institution.name }}: {{ institution.type }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="course" class="section">
+            {% block content %}
+            <div class="container">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                {% if current_user in course.authors %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end" >
+                        <button id="show-fields-btn" class="btn my-button"  style=" margin-bottom: 20px; margin-top: 20px;">Редактировать</button>
+                        <button id="hide-fields-btn" class="btn btn-secondary hidden" style=" margin-bottom: 20px; margin-top: 20px;">Отмена</button>
+                    </div>
+                {% endif %}
+                <h2>Темы курса</h2>
+                {% if current_user.role == 'учащийся' %}
+                    <div style="background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 10px; margin-bottom: 20px;">
+                        Статус выполнения курса: {{ course_completion.completion_status }}
+                    </div>
+                {% endif %}
+                <div class="text-center" style="margin-bottom: 20px; text-align: center;">
+                    <button id="add-topic-btn" class="btn my-button hidden" style="margin-bottom: 20px;">Добавить тему</button>
+                </div>
+
+                <form id="add-topic-form" class="hidden" method="POST" enctype="multipart/form-data" action="{{ url_for('course_detail', name=course.name|url_encode) }}">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+
+                    <div class="form-group">
+                        <label for="topic-name">Название темы</label>
+                        <input type="text" id="topic-name" name="topic_name" class="form-control" required>
+                    </div>
+                    <div class="text-center" style="margin-bottom: 20px;text-align: center;">
+                        <button type="submit" class="btn my-button" style="margin-right: 10px;">Добавить</button>
+                        <button type="button" id="cancel-add-topic-btn" class="btn btn-secondary">Отменить</button>
+                    </div>
+                </form>
+
+                {% for topic in topics %}
+                <div class="topic-block"  data-topic-id="{{ topic.id }}">
+                    <hr>
+                    <h3>
+                        {{ topic.name }}
+                        <small class="text-muted hidden">№: {{ topic.index }}</small>
+                    </h3>
+                    {% for lecture in topic.lectures %}
+                        <button class="lecture-btn" data-lecture-id="{{ lecture.id }}" style="width: 100%; margin-bottom: 10px;">Лекция: {{ lecture.title }}</button>
+                        <div id="lecture-{{ lecture.id }}" class="lecture-content" style="display: none;">
+                            <h4>{{ lecture.title }}</h4>
+                           {% if 'youtube.com/embed' in lecture.description %}
+                                <iframe width="560" height="315" src="{{ lecture.description }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                           {% else %}
+                                <p>{{ lecture.description }}</p>
+                           {% endif %}
+                        </div>
+                    {% endfor %}
+                    {% for task in topic.tasks %}
+                        <button class="task-btn" data-task-id="{{ task.id }}" style="width: 100%; margin-bottom: 10px;">
+                            Задание:
+                            {% if task.test %}
+                                Тест
+                            {% else %}
+                                Краткий ответ
+                            {% endif %}
+                        </button>
+                        <div id="task-{{ task.id }}" class="task-content" style="display: none;">
+                            <h4>{{ task.question }}</h4>
+                            <!-- Форма для ответа на задание -->
+                            {% if task.test %}
+                                <form id="answer-form-{{ task.id }}" method="POST" action="{{ url_for('course_detail', name=course.name|url_encode) }}">
+                                    <input type="hidden" name="task_id" value="{{ task.id }}">
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                                    <!-- Это тест, показываем варианты ответов -->
+                                    <input type="radio" id="option1" name="answer" value="1">
+                                    <label for="option1">{{ task.test.option1 }}</label><br>
+                                    <input type="radio" id="option2" name="answer" value="2">
+                                    <label for="option2">{{ task.test.option2 }}</label><br>
+                                    <input type="radio" id="option3" name="answer" value="3">
+                                    <label for="option3">{{ task.test.option3 }}</label><br>
+                                    <input type="radio" id="option4" name="answer" value="4">
+                                    <label for="option4">{{ task.test.option4 }}</label><br>
+                                    {% if current_user in course.authors %}
+                                        <p>Правильный ответ: {{ task.test.correct_option }}</p>
+                                    {% endif %}
+                                    <button type="submit" class="btn my-button" style="width: 50%; margin: 10px auto;">Отправить ответ</button>
+                                </form>
+                            {% else %}
+                                <!-- Это задание с кратким ответом, показываем поле для ввода -->
+                                <form id="answer-form-{{ task.id }}" method="POST" action="{{ url_for('course_detail', name=course.name|url_encode) }}">
+                                    <input type="hidden" name="task_id" value="{{ task.id }}">
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                                    <input type="text" id="answer" name="answer" class="form-control" style="margin-bottom: 10px;">
+                                    {% if current_user in course.authors %}
+                                        <p>Правильный ответ: {{ task.answer.correct_answer }}</p>
+                                    {% endif %}
+                                    <button type="submit" class="btn my-button" style="width: 50%; margin: 10px auto;">Отправить ответ</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" name="topic_id" value="{{ topic.id }}">
+                    <div class="text-center" style="margin-bottom: 20px; text-align: center;">
+                        <button id="toggle-modal-btn" data-topic-id="{{ topic.id }}" class="my-button hidden" style="margin-bottom: 20px;margin-top: 20px">+ Элемент</button>
+                    </div>
+                    <div id="elementModal" class="modal">
+                        <div class="modal-content">
+                            <div class="container">
+
+                                <button class="close">&times;</button>
+                                <h2>Выберите тип элемента</h2>
+                                <button id="task-btn" class="btn my-button" style="display: block; margin-bottom: 10px;">Задание</button>
+                                <button id="lecture-btn" class="btn my-button" style="display: block; margin-bottom: 10px;">Лекция</button>
+
+                                <!-- Скрытый блок для задания -->
+                                <div id="task-section" class="hidden" style="margin-top: 20px;">
+                                    <form id="task-form" method="POST" enctype="multipart/form-data" action="{{ url_for('course_detail', name=course.name|url_encode) }}">
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="topic_id" value="{{ topic.id }}">
+                                        <label for="question">Введите вопрос:</label>
+                                        <input type="text" id="question" name="question" class="form-control" style="margin-bottom: 10px;">
+                                        <div class="text-center">
+                                            <button id="short-answer-btn" class="btn my-button" style="width: 50%; margin: 10px auto;">Краткий ответ</button>
+                                            <button id="test-btn" class="btn my-button" style="width: 50%; margin: 10px auto;">Тест</button>
+                                        </div>
+                                        <!-- Скрытый блок для краткого ответа -->
+                                        <div id="short-answer-section" class="hidden" style="margin-top: 20px;">
+                                            <label for="correct-answer">Введите правильный ответ:</label>
+                                            <input type="text" id="correct-answer" name="correct_answer" class="form-control" style="margin-bottom: 10px;">
+                                            <button type="submit" id="upload-task-btn" class="btn my-button" style="width: 50%; margin: 10px auto;">Загрузить задание</button>
+                                        </div>
+                                        <div id="test-section" class="hidden" style="margin-top: 20px;">
+                                            <label for="option1">Введите вариант ответа 1:</label>
+                                            <input type="text" id="option1" name="option1" class="form-control" style="margin-bottom: 10px;">
+                                            <label for="option2">Введите вариант ответа 2:</label>
+                                            <input type="text" id="option2" name="option2" class="form-control" style="margin-bottom: 10px;">
+                                            <label for="option3">Введите вариант ответа 3:</label>
+                                            <input type="text" id="option3" name="option3" class="form-control" style="margin-bottom: 10px;">
+                                            <label for="option4">Введите вариант ответа 4:</label>
+                                            <input type="text" id="option4" name="option4" class="form-control" style="margin-bottom: 10px;">
+                                            <label for="correct-option">Введите номер правильного ответа:</label>
+                                            <input type="number" id="correct-option" name="correct_option" class="form-control" style="margin-bottom: 10px;">
+                                            <button type="submit" id="upload-test-btn" class="btn my-button" style="width: 50%; margin: 10px auto;">Загрузить тест</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                 <!-- Скрытый блок для лекции -->
+                                <div id="lecture-section" class="hidden" style="margin-top: 20px;">
+                                    <form id="lecture-form" method="POST" enctype="multipart/form-data" action="{{ url_for('course_detail', name=course.name|url_encode) }}">
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="topic_id" value="{{ topic.id }}">
+                                        <div class="form-group">
+                                            <label for="lecture-title">Название лекции:</label>
+                                            <input type="text" id="lecture-title" name="lecture_title" class="form-control" style="margin-bottom: 10px;">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lecture-description">Описание лекции:</label>
+                                            <textarea id="lecture-description" name="lecture_description" class="form-control" rows="5" style="margin-bottom: 10px;"></textarea>
+                                        </div>
+                                        <button type="submit" id="upload-lecture-btn" class="btn my-button" style="width: 50%; margin: 10px auto;">Загрузить лекцию</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endblock %}
+        </div>
+
+        <div id="chat" class="section" style="overflow: auto; width: 180vh;">
+
+            <div class="row" style="width: 100%; height: 70vh;padding-top: 15px;  border-radius: 10px; " >
+
+                <div class="col-3" style="background-color:#dce6f490; border-radius: 10px; padding: 10px; position: relative;">
+                    <div style=" padding-top: 10px;margin-top: 15px;width: 85%; margin-right: 20px;margin-left: 20px; padding: 5px; color: #343a40; border: #343a40; border-width: thin; border-style: solid; border-radius: 20px;">
+                        <h6>Группы</h6>
+                    </div>
+                    <div style="color: #9cdcfe;">
+                        {% for group in groups %}
+                        <button class="ch" style="margin-top: 10px;"  onclick="changeGroupName('{{ group.name }}', '{{ group.id }}')">{{ group.name }}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+                <div class="col-9" style="background-color:  #fafafa; border-radius: 10px; padding: 10px;position: relative;">
+                    <div style="background-color: #fafafa; border-radius: 10px; padding: 10px; margin-top: 10px;">
+                        <div class="header" style="padding: 5px; padding-top: 10px; color: #343a40; border: #343a40; border-width: thin; border-style: solid; border-radius: 20px;">
+                            <h6 id="group-name" style="display: inline-block;">group name</h6>
+                            <div class="btn-group btn-group-sm" role="group" style="float: right;" aria-label="...">
+                                <button id="addUserButton" class="btn btn-sm btn-secondary" >&#128100; +</button>
+                                <button id="startButton"  class="btn btn-secondary">Видеоконференция</button>
+                            </div>
+                            <!-- Модальное окно -->
+                            <div id="myModal" class="modal">
+                                <!-- Содержимое модального окна -->
+                                <div class="modal-content">
+                                    <span class="close">&times;</span>
+                                    <div id="localVideoContainer">
+                                        <video id="localVideo" autoplay muted></video>
+                                        <div id="localVideoCaption" class="video-caption">You</div>
+                                    </div>
+                                    <div id="remoteVideosContainer"></div>
+                                    <div class="controls">
+                                        <button id="muteButton"> &#128265; </button>
+                                        <button id="cameraButton"> &#128065; </button>
+                                        <button id="shareScreenButton">Трансляция экрана</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="body1" id="messageContainer" style="padding: 20px 30px; flex: 1; overflow-y: auto;">
+                            {% for msg in messages %}
+                                {% if msg.user_id == current_user.id %}
+                                    <p class="message user_message">{{ msg.message }}</p>
+                                {% else %}
+                                    <p class="message">{{ msg.message }}</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <form id="sendMessageForm">
+                            <div style="align-items: center; position: absolute; bottom: 0px; width: 100%;">
+                                <input type="text" id="messageInput" name="message" placeholder="Введите ваше сообщение" style="flex: 1; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                                <input type="hidden" name="group_id" id="groupIdInput">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="button" onclick="sendMessage()" style="padding: 10px; border-radius: 5px; background-color: #007bff; color: #fff; border: none; cursor: pointer; margin-left: 10px;">Отправить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="addUserModal" class="modal">
+                <div class="modal-content">
+                    <span id="closeAddUserModal" class="close">&times;</span>
+                    <h2>Добавление пользователя в группу</h2>
+                    <form id="addUserForm" method="POST" action="{{ url_for('course_detail', name=course.name|url_encode) }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="group_id" id="groupIdInput">
+                        <input type="hidden" name="user_id" id="userIdInput">
+                        <ol id="userList" class="list-group list-group-numbered">
+                            {% for student in students %}
+                                {% set group_names = student_groups.get(student.id, []) %}
+
+                                    <li class="list-group-item d-flex justify-content-between align-items-start" data-user-id="{{ student.id }}">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">{{ student.name }}</div>
+                                            Учащийся
+                                        </div>
+                                {% if not group_names %}
+                                        <button class="btn my-button" type="button" onclick="addUserToGroup({{ student.id }})" style="font-size: 16px">+</button>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ol>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="participants" class="section">
+            <!-- Content for "Список участников" -->
+            <h2>Список участников</h2>
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('courseCodeModal').style.display='block'">
+                Код курса
+            </button>
+            <button id="createGroupButton" class="btn btn-sm btn-outline-secondary">
+                Создать группу
+            </button>
+        <!-- Модальное окно -->
+            <div id="courseCodeModal" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Код курса</h5>
+                            <button type="button" class="close" onclick="document.getElementById('courseCodeModal').style.display='none'" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="courseCodeInput" value="{{ course_code }}" readonly>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="copyButton">Копировать</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('courseCodeModal').style.display='none'">Закрыть</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="createGroupModal" class="modal">
+                <div class="modal-content">
+                    <h2>Создание группы</h2>
+                    <form id="createGroupForm" method="post">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="text" id="groupNameInput" name="group_name" placeholder="Введите название группы">
+                        <button id="saveGroupButton" class="btn btn-primary" type="submit">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+
+            <ol class="list-group list-group-numbered" >
+              {% for institution in institutions %}
+                <li class="list-group-item d-flex justify-content-between align-items-start" >
+                     <div class="ms-2 me-auto" style="font-size: 14px; ">
+                         <div class="fw-bold" style="font-size: 16px;  ">
+                            {{ institution.name }}
+                         </div>
+                         Организация
+                     </div>
+                </li>
+              {% endfor %}
+              {% for author in authors %}
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                     <div class="ms-2 me-auto" style="font-size: 14px; text-align: left;">
+                         <div class="fw-bold" style="font-size: 16px;  ">
+                             {{ author.name }}
+                         </div>
+                         Автор курса
+                     </div>
+                </li>
+              {% endfor %}
+              <li class="list-group-item d-flex justify-content-between align-items-start">
+                     <div class="ms-2 me-auto" style="font-size: 14px;  ">
+                         <div class="fw-bold" style="font-size: 16px; ">
+                             Куратор группы
+                         </div>
+                         Куратор группы
+                     </div>
+              </li>
+
+                {% for student in students %}
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto" style="font-size: 14px; text-align: left;">
+                            <div class="fw-bold" style="font-size: 16px; text-align: left;">
+                                {{ student.name }}
+                            </div>
+                            {% set group_names = student_groups.get(student.id, []) %}
+                            {% if group_names %}
+                                <div style="font-size: 14px; text-align: left; color: #888;">
+                                    "{{ ', '.join(group_names) }}"
+                                </div>
+                            {% else %}
+                                <div style="font-size: 14px; text-align: left; color: #888;">
+                                    Не состоит в группах
+                                </div>
+                            {% endif %}
+                            <div style="font-size: 14px; text-align: left;">
+                                Учащийся
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ol>
+
+        </div>
+        <div id="progress" class="section">
+
+            <h2>Прогресс</h2>
+            {% if current_user.role == 'учащийся' %}
+                {% if course_completion is not none %}
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">заработано {{ course_completion.points }} балл(ов)</li>
+                        <li class="list-group-item">оценка: {{ course_completion.grade }} %</li>
+                        <li class="list-group-item">заданий всего: {{  total_tasks }} </li>
+                        <li class="list-group-item">из них пройдено: {{ completed_tasks }}</li>
+                    </ul>
+                {% else %}
+                    <p>Данные о завершении курса не найдены.</p>
+                {% endif %}
+            {% endif %}
+            {% if current_user in course.authors or current_user.role == 'куратор'%}
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div id="plot"></div>
+                            <script>
+                                var plots = {{ plot | safe }};
+                                Plotly.newPlot('plot', plots);
+                            </script>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="plot1"></div>
+                            <script>
+                                var plots1 = {{ plot1 | safe }};
+                                Plotly.newPlot('plot1', plots1);
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top" style="padding-left: 110px; padding-right: 110px;">
+        <div class="col-md-6 d-flex align-items-center">
+            <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Diane Shay</span>
+        </div>
+        <div class="col-md-6 d-flex justify-content-end">
+            <ul class="nav list-unstyled d-flex">
+                <li class="nav-item">
+                    <button id="supportButton" class="btn btn-outline-dark" style="margin-left: 20px; margin-right: 20px">Поддержка</button>
+                </li>
+                <li class="nav-item">
+                    <a href="https://github.com/DiShaYa/vkr-iintegrated-development-environment-for-educational-systems-.git" class="btn btn-dark">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Модальное окно для отправки сообщения -->
+    <div id="supportModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Отправить обращение</h2>
+            <form id="supportForm" method="POST" action="/support">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                <div class="form-group">
+                    <label for="message_sup">Сообщение:</label>
+                    <textarea id="message_sup" name="message_sup" class="form-control" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+        </div>
+    </div>
+  </div>
+    <script>
+        // Скрипт для открытия и закрытия модального окна
+        document.getElementById('supportButton').onclick = function() {
+            document.getElementById('supportModal').style.display = "block";
+        }
+
+        document.getElementsByClassName('close')[0].onclick = function() {
+            document.getElementById('supportModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('supportModal')) {
+                document.getElementById('supportModal').style.display = "none";
+            }
+        }
+        //edit mode
+         document.addEventListener('DOMContentLoaded', function() {
+            const editBtn = document.querySelector('.btn-outline-secondary');
+            const saveBtn = document.getElementById('save-btn');
+            const cancelBtn = document.getElementById('cancel-btn');
+            const editForm = document.getElementById('edit-form');
+            const courseView = document.getElementById('course-view');
+            const editModeElements = document.querySelectorAll('.edit-mode');
+            const descriptionEditor = CKEDITOR.replace('description');
+
+            editBtn.addEventListener('click', function() {
+                editBtn.style.display = 'none';
+                saveBtn.style.display = 'inline-block';
+                cancelBtn.style.display = 'inline-block';
+                editForm.style.display = 'block';
+                courseView.style.display = 'none';
+                editModeElements.forEach(element => element.style.display = 'block');
+            });
+
+            cancelBtn.addEventListener('click', function() {
+                editBtn.style.display = 'inline-block';
+                saveBtn.style.display = 'none';
+                cancelBtn.style.display = 'none';
+                editForm.style.display = 'none';
+                courseView.style.display = 'block';
+                editModeElements.forEach(element => element.style.display = 'none');
+            });
+
+            saveBtn.addEventListener('click', function() {
+                editForm.submit();
+            });
+
+            if ({{ edit_mode|tojson }} == true) {
+                editBtn.style.display = 'none';
+                saveBtn.style.display = 'inline-block';
+                cancelBtn.style.display = 'inline-block';
+                editForm.style.display = 'block';
+                courseView.style.display = 'none';
+                editModeElements.forEach(element => element.style.display = 'block');
+            }
+        });
+// страница курса
+        document.addEventListener('DOMContentLoaded', function() {
+            const showFieldsBtn = document.getElementById('show-fields-btn');
+            const hideFieldsBtn = document.getElementById('hide-fields-btn');
+            const addTopicBtn = document.getElementById('add-topic-btn');
+            const addTopicForm = document.getElementById('add-topic-form');
+            const cancelAddTopicBtn = document.getElementById('cancel-add-topic-btn');
+            const modalBtns = document.querySelectorAll('#toggle-modal-btn');
+            const modals = document.querySelectorAll('#elementModal');
+
+            if (showFieldsBtn) {
+                showFieldsBtn.addEventListener('click', function() {
+                    const hiddenFields = document.querySelectorAll('.text-muted.hidden, #toggle-modal-btn.hidden, #add-topic-btn.hidden');
+                    hiddenFields.forEach(function(field) {
+                        field.classList.remove('hidden');
+                        field.style.display = 'block';
+                    });
+                    showFieldsBtn.style.display = 'none';
+                    hideFieldsBtn.classList.remove('hidden');
+                    hideFieldsBtn.style.display = 'block';
+                    addTopicBtn.classList.remove('hidden');
+                    addTopicBtn.style.display = 'block';
+                });
+            }
+
+            if (hideFieldsBtn) {
+                hideFieldsBtn.addEventListener('click', function() {
+                    const hiddenFields = document.querySelectorAll('.text-muted, #toggle-modal-btn, #add-topic-btn, #add-topic-form');
+                    hiddenFields.forEach(function(field) {
+                        field.classList.add('hidden');
+                        field.style.display = 'none';
+                    });
+                    showFieldsBtn.style.display = 'block';
+                    hideFieldsBtn.style.display = 'none';
+                    addTopicBtn.classList.add('hidden');
+                    addTopicBtn.style.display = 'none';
+                });
+            }
+
+            if (addTopicBtn) {
+                addTopicBtn.addEventListener('click', function() {
+                    addTopicForm.classList.remove('hidden');
+                    addTopicForm.style.display = 'block';
+                    addTopicBtn.style.display = 'none';
+                });
+            }
+
+            if (cancelAddTopicBtn) {
+                cancelAddTopicBtn.addEventListener('click', function() {
+                    addTopicForm.classList.add('hidden');
+                    addTopicForm.style.display = 'none';
+                    addTopicBtn.style.display = 'block';
+                });
+            }
+
+            // Обработка кнопок для открытия модальных окон
+            modalBtns.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const modal = this.nextElementSibling;
+                    if (modal) {
+                        modal.style.display = 'block';
+                    }
+                });
+            });
+
+            // Обработка кнопок закрытия модальных окон
+            modals.forEach(function(modal) {
+                const closeBtn = modal.querySelector('.close');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', function() {
+                        modal.style.display = 'none';
+                        const taskSection = modal.querySelector('#task-section');
+                        if (taskSection) {
+                            taskSection.classList.add('hidden');
+                            taskSection.style.display = 'none';
+                        }
+                        modal.querySelectorAll('.btn.my-button').forEach(function(btn) {
+                            btn.style.display = 'block';
+                        });
+                    });
+                }
+            });
+
+            // Скрыть все поля и модальные окна при загрузке страницы
+            const hiddenFields = document.querySelectorAll('.text-muted.hidden, #toggle-modal-btn.hidden, #add-topic-btn.hidden, #add-topic-form.hidden, #hide-fields-btn.hidden');
+            hiddenFields.forEach(function(field) {
+                field.style.display = 'none';
+            });
+        });
+//едит мод
+        document.addEventListener('DOMContentLoaded', function() {
+            var editMode = {{ 'true' if edit_mode else 'false' }};
+            if (editMode) {
+                document.body.classList.add('edit-mode-visible');
+            }
+        });
+
+        function showSection(sectionId, btn) {
+
+            var sections = document.querySelectorAll('.section');
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+
+            document.getElementById(sectionId).classList.add('active');
+
+            // Remove the "btn-current" class from all buttons except the clicked one
+            var buttons = document.querySelectorAll('.btn-custom');
+            buttons.forEach(function(button) {
+                if (button !== btn) {
+                    button.classList.remove('btn-current');
+                }
+            });
+
+            btn.classList.add('btn-current');
+        }
+
+        // Show "О курсе"
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('about', document.getElementById('btn-about'));
+        });
+
+// Элемент модал окно
+        document.addEventListener('DOMContentLoaded', function() {
+            const taskBtns = document.querySelectorAll('#task-btn');
+            const lectureBtns = document.querySelectorAll('#lecture-btn');
+            const shortAnswerBtns = document.querySelectorAll('#short-answer-btn');
+            const testBtns = document.querySelectorAll('#test-btn');
+            const taskSections = document.querySelectorAll('#task-section');
+            const lectureSections = document.querySelectorAll('#lecture-section');
+            const shortAnswerSections = document.querySelectorAll('#short-answer-section');
+            const testSections = document.querySelectorAll('#test-section');
+            const closeModalBtns = document.querySelectorAll('.modal .close');
+            const toggleModalBtns = document.querySelectorAll('#toggle-modal-btn');
+            const lectureFileInputs = document.querySelectorAll('#lecture-file');
+            const lectureDescriptionInputs = document.querySelectorAll('#lecture-description');
+            const uploadLectureBtns = document.querySelectorAll('#upload-lecture-btn');
+            const uploadTaskBtns = document.querySelectorAll('#upload-task-btn');
+            const uploadTestBtns = document.querySelectorAll('#upload-test-btn');
+
+            toggleModalBtns.forEach((toggleModalBtn, index) => {
+                toggleModalBtn.addEventListener('click', function() {
+                    const modal = toggleModalBtn.closest('.topic-block').querySelector('#elementModal');
+                    modal.style.display = 'block';
+                });
+
+                closeModalBtns[index].addEventListener('click', function() {
+                    const modal = toggleModalBtn.closest('.topic-block').querySelector('#elementModal');
+                    modal.style.display = 'none';
+                    taskSections[index].classList.add('hidden');
+                    taskSections[index].style.display = 'none';
+                    lectureSections[index].classList.add('hidden');
+                    lectureSections[index].style.display = 'none';
+                    lectureBtns[index].style.display = 'block';
+                    taskBtns[index].style.display = 'block';
+                });
+
+                taskBtns[index].addEventListener('click', function() {
+                    taskSections[index].classList.remove('hidden');
+                    taskSections[index].style.display = 'block';
+                    lectureSections[index].classList.add('hidden');
+                    lectureSections[index].style.display = 'none';
+                });
+
+                lectureBtns[index].addEventListener('click', function() {
+                    taskSections[index].classList.add('hidden');
+                    taskSections[index].style.display = 'none';
+                    lectureSections[index].classList.remove('hidden');
+                    lectureSections[index].style.display = 'block';
+                });
+
+                shortAnswerBtns[index].addEventListener('click', function(event) {
+                    event.preventDefault();
+                    shortAnswerSections[index].classList.remove('hidden');
+                    shortAnswerSections[index].style.display = 'block';
+                    testSections[index].classList.add('hidden');
+                    testSections[index].style.display = 'none';
+                });
+
+                testBtns[index].addEventListener('click', function(event) {
+                    event.preventDefault();
+                    testSections[index].classList.remove('hidden');
+                    testSections[index].style.display = 'block';
+                    shortAnswerSections[index].classList.add('hidden');
+                    shortAnswerSections[index].style.display = 'none';
+                });
+
+                uploadLectureBtns[index].addEventListener('click', function() {
+                    const file = lectureFileInputs[index].files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const lectureText = event.target.result;
+                        lectureDescriptionInputs[index].value = lectureText;
+                    };
+                    reader.readAsText(file);
+                });
+
+                uploadTaskBtns[index].addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const taskForm = this.closest('form');
+                    fetch("{{ url_for('course_detail', name=course.name|url_encode) }}", {
+                        method: 'POST',
+                        body: new FormData(taskForm)
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.reload();
+                        } else {
+                            return response.json().then(error => {
+                                throw new Error(error.message);
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        alert('Произошла ошибка: ' + error.message);
+                    });
+                });
+
+                uploadTestBtns[index].addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const testForm = this.closest('form');
+                    fetch("{{ url_for('course_detail', name=course.name|url_encode) }}", {
+                        method: 'POST',
+                        body: new FormData(testForm)
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.reload();
+                        } else {
+                            return response.json().then(error => {
+                                throw new Error(error.message);
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        alert('Произошла ошибка: ' + error.message);
+                    });
+                });
+            });
+
+            taskSections.forEach(taskSection => {
+                taskSection.classList.add('hidden');
+                taskSection.style.display = 'none';
+            });
+
+            lectureSections.forEach(lectureSection => {
+                lectureSection.classList.add('hidden');
+                lectureSection.style.display = 'none';
+            });
+
+            shortAnswerSections.forEach(shortAnswerSection => {
+                shortAnswerSection.classList.add('hidden');
+                shortAnswerSection.style.display = 'none';
+            });
+
+            testSections.forEach(testSection => {
+                testSection.classList.add('hidden');
+                testSection.style.display = 'none';
+            });
+        });
+
+        //лекция
+        document.addEventListener('DOMContentLoaded', function() {
+            const lectureBtns = document.querySelectorAll('#lecture-btn');
+            const topicIdInput = document.getElementById('topic-id-input');
+
+            lectureBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const lectureSection = document.getElementById('lecture-section');
+                    lectureSection.classList.remove('hidden');
+
+                    // Получаем topic_id из родительского блока темы
+                    const topicId = this.closest('.topic-block').getAttribute('data-topic-id');
+                    document.getElementById('topic-id-input').value = topicId;
+                });
+            });
+
+            const lectureForm = document.getElementById('lecture-form');
+            lectureForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const lectureTitle = document.getElementById('lecture-title').value;
+                const lectureDescription = document.getElementById('lecture-description').value;
+
+                if (lectureTitle.trim() === '' || lectureDescription.trim() === '') {
+                    alert('Пожалуйста, заполните все поля.');
+                    return;
+                }
+
+                fetch("{{ url_for('course_detail', name=course.name|url_encode) }}", {
+                    method: 'POST',
+                    body: new FormData(lectureForm)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        return response.json().then(error => {
+                            throw new Error(error.message);
+                        });
+                    }
+                })
+                .catch(error => {
+                    alert('Произошла ошибка: ' + error.message);
+                });
+            });
+        });
+        const taskBtns = document.querySelectorAll('.task-btn');
+
+        taskBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const taskId = this.getAttribute('data-task-id');
+                const taskSection = document.getElementById('task-' + taskId);
+                if (taskSection.style.display === 'block') {
+                    taskSection.style.display = 'none';
+                } else {
+                    taskSection.style.display = 'block';
+                }
+            });
+        });
+
+        document.getElementById('copyButton').addEventListener('click', function() {
+            var copyText = document.getElementById('courseCodeInput');
+            copyText.select();
+            document.execCommand('copy');
+        });
+        //группы создание
+        document.getElementById('createGroupButton').addEventListener('click', function() {
+            // Отображаем модальное окно
+            document.getElementById('createGroupModal').style.display = 'block';
+        });
+
+        document.getElementById('saveGroupButton').addEventListener('click', function() {
+            var groupName = document.getElementById('groupNameInput').value;
+            // Отправьте groupName на сервер
+            fetch(window.location.pathname, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'group_name=' + encodeURIComponent(groupName),
+            })
+            .then(response => response.json())
+            .then(data => {
+
+                console.log(data);
+                // Закрываем модальное окно
+                document.getElementById('createGroupModal').style.display = 'none';
+                // Обновляем страницу, чтобы отобразить новую группу
+                location.reload();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+
+        //группа добавление в
+        var currentGroupId = null;
+        var currentUserId = {{ current_user.id }};
+        function changeGroupName(name, groupId) {
+            document.getElementById('group-name').innerText = name;
+            currentGroupId = groupId;
+            getMessages(groupId); // Загружаем сообщения для выбранной группы
+        }
+
+        document.getElementById('addUserButton').addEventListener('click', function() {
+            // Отображаем модальное окно
+            document.getElementById('addUserModal').style.display = 'block';
+        });
+
+        document.getElementById('closeAddUserModal').addEventListener('click', function() {
+            // Закрываем модальное окно
+            document.getElementById('addUserModal').style.display = 'none';
+        });
+// видеоконференция
+        function addUserToGroup(userId) {
+            document.getElementById('groupIdInput').value = currentGroupId;
+            document.getElementById('userIdInput').value = userId;
+            document.getElementById('addUserForm').submit();
+        }
+
+        const localVideo = document.getElementById('localVideo');
+        const remoteVideo = document.getElementById('remoteVideo');
+        const configuration = {
+            iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+        };
+        let localStream;
+        let peerConnection;
+
+        async function start() {
+            localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            localVideo.srcObject = localStream;
+
+            const signaling = new WebSocket('ws://localhost:5000/signal');
+            signaling.onmessage = async (message) => {
+                const data = JSON.parse(message.data);
+                switch (data.type) {
+                    case 'offer':
+                        await handleOffer(data);
+                        break;
+                    case 'answer':
+                        await handleAnswer(data);
+                        break;
+                    case 'candidate':
+                        await handleCandidate(data);
+                        break;
+                    default:
+                        break;
+                }
+            };
+
+            peerConnection = new RTCPeerConnection(configuration);
+            peerConnection.onicecandidate = ({ candidate }) => {
+                if (candidate) {
+                    signaling.send(JSON.stringify({ type: 'candidate', candidate }));
+                }
+            };
+            peerConnection.ontrack = (event) => {
+                remoteVideo.srcObject = event.streams[0];
+            };
+            localStream.getTracks().forEach((track) => {
+                peerConnection.addTrack(track, localStream);
+            });
+
+            const offer = await peerConnection.createOffer();
+            await peerConnection.setLocalDescription(offer);
+            signaling.send(JSON.stringify({ type: 'offer', offer }));
+        }
+
+        async function handleOffer(offer) {
+            await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
+            const answer = await peerConnection.createAnswer();
+            await peerConnection.setLocalDescription(answer);
+            signaling.send(JSON.stringify({ type: 'answer', answer }));
+        }
+
+        async function handleAnswer(answer) {
+            await peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
+        }
+
+        async function handleCandidate({ candidate }) {
+            await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+        }
+
+        start();
+
+        const startBtn = document.getElementById('startButton');
+        const shareScreenBtn = document.getElementById('shareScreenButton');
+        const modal = document.getElementById('myModal');
+        const closeBtn = document.getElementsByClassName('close')[0];
+        const localVid = document.getElementById('localVideo');
+        const remoteVidContainer = document.getElementById('remoteVideosContainer');
+        const muteBtn = document.getElementById('muteButton');
+        const cameraBtn = document.getElementById('cameraButton');
+
+        let localStr;
+        let peerConn;
+        const config = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
+
+        startBtn.addEventListener('click', () => {
+            modal.style.display = 'block';
+            startConf();
+        });
+
+        shareScreenBtn.addEventListener('click', async () => {
+            try {
+                localStr = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                localVid.srcObject = localStr;
+                const tracks = localStr.getTracks();
+                tracks.forEach(track => peerConn.addTrack(track, localStr));
+            } catch (err) {
+                console.error('Error accessing screen:', err);
+            }
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        muteBtn.addEventListener('click', () => {
+            const audioTracks = localStr.getAudioTracks();
+            audioTracks.forEach(track => track.enabled = !track.enabled);
+            muteBtn.textContent = audioTracks[0].enabled ? '&#128265;' : '&#128263;';
+        });
+
+        cameraBtn.addEventListener('click', () => {
+            const videoTracks = localStr.getVideoTracks();
+            videoTracks.forEach(track => track.enabled = !track.enabled);
+            cameraBtn.textContent = videoTracks[0].enabled ? '&#127910;' : '&#128065;';
+        });
+
+        async function startConf() {
+            localStr = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            localVid.srcObject = localStr;
+
+            const signaling = new WebSocket('ws://localhost:5000');
+            signaling.onmessage = async (message) => {
+                const data = JSON.parse(message.data);
+                switch (data.type) {
+                    case 'offer':
+                        await handleOffer(data.offer);
+                        break;
+                    case 'answer':
+                        await handleAnswer(data.answer);
+                        break;
+                    case 'candidate':
+                        await handleCandidate(data.candidate);
+                        break;
+                }
+            };
+
+            peerConn = new RTCPeerConnection(config);
+            peerConn.onicecandidate = ({ candidate }) => {
+                if (candidate) {
+                    signaling.send(JSON.stringify({ type: 'candidate', candidate }));
+                }
+            };
+
+            peerConn.ontrack = (event) => {
+                const remoteVid = document.createElement('video');
+                remoteVid.srcObject = event.streams[0];
+                remoteVid.autoplay = true;
+                addRemoteVid(remoteVid);
+            };
+
+            localStr.getTracks().forEach(track => {
+                peerConn.addTrack(track, localStr);
+            });
+
+            const offer = await peerConn.createOffer();
+            await peerConn.setLocalDescription(offer);
+            signaling.send(JSON.stringify({ type: 'offer', offer }));
+        }
+
+        async function handleOffer(offer) {
+            await peerConn.setRemoteDescription(new RTCSessionDescription(offer));
+            const answer = await peerConn.createAnswer();
+            await peerConn.setLocalDescription(answer);
+            signaling.send(JSON.stringify({ type: 'answer', answer }));
+        }
+
+        async function handleAnswer(answer) {
+            await peerConn.setRemoteDescription(new RTCSessionDescription(answer));
+        }
+
+        async function handleCandidate(candidate) {
+            await peerConn.addIceCandidate(new RTCIceCandidate(candidate));
+        }
+
+        function addRemoteVid(videoElement) {
+            const remoteVidDiv = document.createElement('div');
+            const vidCaption = document.createElement('div');
+            vidCaption.className = 'video-caption';
+            vidCaption.textContent = 'Remote User';
+            remoteVidDiv.appendChild(videoElement);
+            remoteVidDiv.appendChild(vidCaption);
+            remoteVidContainer.appendChild(remoteVidDiv);
+        }
+        function getMessages(groupId) {
+            fetch(`/get_messages?group_id=${groupId}`, {
+                method: 'GET'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Обновляем содержимое чата
+                updateChat(data.messages);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ошибка при загрузке сообщений: ' + error.message);
+            });
+        }
+
+        function updateChat(messages) {
+            var messageContainer = document.getElementById('messageContainer');
+            messageContainer.innerHTML = ''; // Очищаем содержимое чата
+
+            messages.forEach(function(msg) {
+                var newMessage = document.createElement('p');
+                if (msg.user_id == currentUserId) {
+                    newMessage.className = 'message user_message';
+                } else {
+                    newMessage.className = 'message';
+                }
+                newMessage.innerText = msg.message;
+                messageContainer.appendChild(newMessage);
+            });
+
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Прокручиваем чат вниз
+        }
+
+        function sendMessage() {
+            var messageInput = document.getElementById('messageInput');
+            var message = messageInput.value;
+            var groupId = currentGroupId; // Используем текущий groupId
+
+            if (message) {
+                if (groupId) {
+                    var formData = new FormData();
+                    formData.append('message', message);
+                    formData.append('group_id', groupId);
+                    formData.append('csrf_token', '{{ csrf_token() }}'); // Добавляем CSRF токен
+
+                    fetch('/send_message', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        console.log("Response status:", response.status);
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        console.log("Server response:", data);
+                        var messageContainer = document.getElementById('messageContainer');
+                        var newMessage = document.createElement('p');
+                        getMessages(groupId); // Получаем новые сообщения для обновления чата
+                        newMessage.className = 'message user_message';
+                        newMessage.innerText = message;
+                        messageContainer.appendChild(newMessage);
+                        messageInput.value = '';
+                        messageContainer.scrollTop = messageContainer.scrollHeight;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Ошибка отправки сообщения: ' + error.message);
+                    });
+                } else {
+                    alert('Выберите группу');
+                }
+            } else {
+                alert('Введите сообщение');
+            }
+        }
+    // При загрузке страницы
+        window.onload = function() {
+            // Получаем group_id из контекста шаблона
+            var groupId = '{{ group_id }}';
+            // Если group_id существует, загружаем сообщения для этой группы
+            if (groupId) {
+                getMessages(groupId);
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const lectureBtns = document.querySelectorAll('.lecture-btn');
+            lectureBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const lectureId = this.getAttribute('data-lecture-id');
+                    const lectureContent = document.getElementById('lecture-' + lectureId);
+                    if (lectureContent.style.display === 'none') {
+                        lectureContent.style.display = 'block';
+                        this.style.backgroundColor = 'white';
+                    } else {
+                        lectureContent.style.display = 'none';
+                        this.style.backgroundColor = '';
+                    }
+                });
+            });
+        });
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать форму тестирования</title>
+</head>
+<body>
+    <h1>Страница создания формы тестирования</h1>
+    <h1>Ваши тесты</h1>
+     {% for test in test_data %}
+        <div>
+            <h2>{{ test.test_name }}</h2>
+            <ul>
+                {% for question in test.questions %}
+                    <li>
+                        <p>{{ question.question_text }}</p>
+                        <ul>
+                            {% for answer in test.answers %}
+                                <li>{{answer.answer_text}}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+</body>
+</html>
