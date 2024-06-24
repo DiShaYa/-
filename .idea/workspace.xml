@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9341ca35-c96b-4f05-b3fc-29cd86cb48a0" name="Changes" comment="htnm;l">
+      <change afterPath="$PROJECT_DIR$/static/images/courses/20180405-ibm-q-quantum-computer-02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/courses/ChgMgmt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/tokens.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.coverage" beforeDir="false" afterPath="$PROJECT_DIR$/.coverage" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserLogin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/instance/test.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/test.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/AddCourse.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/AddCourse.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Course.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Course.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/PersonalArea.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/PersonalArea.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/mainpage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mainpage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/uploadlecture.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_sample.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_sample.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="6af4f097-b00e-49fc-b451-84f3a81d5da0" />
+        <option name="url" value="https://github.com/DiShaYa/vkr-iintegrated-development-environment-for-educational-systems-.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="ProjectId" id="2f2p3RVu9qaBxK1qaR8vmgUTsls" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Пользователь/PycharmProjects/VKrq/tests/test_sample.py&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Пользователь\PycharmProjects\VKrq\static\images\courses" />
+      <recent name="C:\Users\Пользователь\PycharmProjects\VKrq\static" />
+      <recent name="C:\Users\Пользователь\PycharmProjects\VKrq\assets\img" />
+      <recent name="C:\Users\Пользователь\PycharmProjects\VKrq\flask" />
+      <recent name="C:\Users\Пользователь\PycharmProjects\VKrq\site" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.main(1)">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="VKrq" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Пользователь\PycharmProjects\VKrq\flask\main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main(1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="VKrq" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\Пользователь\PycharmProjects\VKrq\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Pytest" type="tests" factoryName="Autodetect" temporary="true">
+      <module name="VKrq" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;tests.test_sample&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for pytest.MyTestCase" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="VKrq" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;pytest.MyTestCase&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_sample" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="VKrq" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_sample&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in C:/Users/Пользователь/PycharmProjects/VKrq/pytest.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="VKrq" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/pytest.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in C:/Users/Пользователь/PycharmProjects/VKrq/test_sample.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="VKrq" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/test_sample.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in test_sample.py" type="tests" factoryName="py.test" nameIsGenerated="true">
+      <module name="VKrq" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="C:\Users\Пользователь\PycharmProjects\VKrq\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests/test_sample.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.main(1)" />
+      <item itemvalue="Python tests.pytest in test_sample.py" />
+      <item itemvalue="Python tests.Python tests for test_sample" />
+      <item itemvalue="Python tests.Python tests for pytest.MyTestCase" />
+      <item itemvalue="Python tests.Pytest" />
+      <item itemvalue="Python tests.Python tests in C:/Users/Пользователь/PycharmProjects/VKrq/pytest.py" />
+      <item itemvalue="Python tests.Python tests in C:/Users/Пользователь/PycharmProjects/VKrq/test_sample.py" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main(1)" />
+        <item itemvalue="Python tests.Python tests in C:/Users/Пользователь/PycharmProjects/VKrq/pytest.py" />
+        <item itemvalue="Python tests.Python tests for pytest.MyTestCase" />
+        <item itemvalue="Python tests.Pytest" />
+        <item itemvalue="Python tests.Pytest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9341ca35-c96b-4f05-b3fc-29cd86cb48a0" name="Changes" comment="" />
+      <created>1713008827629</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1713008827629</updated>
+      <workItem from="1713008834848" duration="4820000" />
+      <workItem from="1713164558625" duration="612000" />
+      <workItem from="1713831640777" duration="48000" />
+      <workItem from="1713833352045" duration="6132000" />
+      <workItem from="1713891267590" duration="7410000" />
+      <workItem from="1713934174481" duration="597000" />
+      <workItem from="1713980348057" duration="4280000" />
+      <workItem from="1714010370617" duration="469000" />
+      <workItem from="1714012228746" duration="309000" />
+      <workItem from="1714641343065" duration="79000" />
+      <workItem from="1714641466463" duration="754000" />
+      <workItem from="1714761614404" duration="26000" />
+      <workItem from="1714764642848" duration="31000" />
+      <workItem from="1714768143874" duration="75000" />
+      <workItem from="1714839129856" duration="85000" />
+      <workItem from="1714839555456" duration="9174000" />
+      <workItem from="1714851493248" duration="2109000" />
+      <workItem from="1714853656382" duration="279000" />
+      <workItem from="1714854206290" duration="598000" />
+      <workItem from="1715172498730" duration="5267000" />
+      <workItem from="1715373455675" duration="2199000" />
+      <workItem from="1715908454952" duration="1208000" />
+      <workItem from="1716010517389" duration="4820000" />
+      <workItem from="1716041006693" duration="1561000" />
+      <workItem from="1716042687531" duration="7151000" />
+      <workItem from="1716098932619" duration="260000" />
+      <workItem from="1716103031290" duration="80000" />
+      <workItem from="1716104268465" duration="3114000" />
+      <workItem from="1716136359942" duration="1252000" />
+      <workItem from="1716199446903" duration="3061000" />
+      <workItem from="1716204258811" duration="7343000" />
+      <workItem from="1716381231678" duration="1507000" />
+      <workItem from="1716382802762" duration="4912000" />
+      <workItem from="1716391628925" duration="484000" />
+      <workItem from="1716394985866" duration="926000" />
+      <workItem from="1716400352999" duration="2994000" />
+      <workItem from="1716410194848" duration="4757000" />
+      <workItem from="1716417474742" duration="3417000" />
+      <workItem from="1716444058739" duration="4719000" />
+      <workItem from="1716451493947" duration="850000" />
+      <workItem from="1716456596705" duration="762000" />
+      <workItem from="1716466824163" duration="167000" />
+      <workItem from="1716539714227" duration="8787000" />
+      <workItem from="1716629275891" duration="8669000" />
+      <workItem from="1716898126103" duration="11566000" />
+      <workItem from="1717012686952" duration="301000" />
+      <workItem from="1717013926352" duration="3623000" />
+      <workItem from="1717026143017" duration="5694000" />
+      <workItem from="1717032489663" duration="738000" />
+      <workItem from="1717089511027" duration="13844000" />
+      <workItem from="1717174240054" duration="748000" />
+      <workItem from="1717176019016" duration="4620000" />
+      <workItem from="1717181398037" duration="795000" />
+      <workItem from="1717182874083" duration="1824000" />
+      <workItem from="1717187837911" duration="2353000" />
+      <workItem from="1717268911853" duration="9267000" />
+      <workItem from="1717358867628" duration="16206000" />
+      <workItem from="1717416133429" duration="2771000" />
+      <workItem from="1717487729041" duration="2603000" />
+      <workItem from="1717553714526" duration="304000" />
+      <workItem from="1717648158685" duration="15937000" />
+      <workItem from="1717736253521" duration="6181000" />
+      <workItem from="1717742699244" duration="7216000" />
+      <workItem from="1717775106012" duration="3471000" />
+      <workItem from="1717783413786" duration="54000" />
+      <workItem from="1717783578574" duration="9000" />
+      <workItem from="1717783854260" duration="40000" />
+      <workItem from="1717852385568" duration="24000" />
+      <workItem from="1717853732737" duration="160000" />
+      <workItem from="1717854847319" duration="250000" />
+      <workItem from="1717875800107" duration="5417000" />
+      <workItem from="1717939795207" duration="17517000" />
+      <workItem from="1718011741258" duration="6852000" />
+      <workItem from="1718025045754" duration="6201000" />
+      <workItem from="1718040769631" duration="13463000" />
+      <workItem from="1718065307238" duration="191000" />
+      <workItem from="1718072742181" duration="511000" />
+      <workItem from="1718075270442" duration="2508000" />
+      <workItem from="1718082397203" duration="1464000" />
+      <workItem from="1718090320454" duration="1508000" />
+      <workItem from="1718379581613" duration="535000" />
+      <workItem from="1718451975975" duration="4500000" />
+      <workItem from="1718471208466" duration="2038000" />
+      <workItem from="1718477330162" duration="1549000" />
+      <workItem from="1718544559505" duration="28989000" />
+      <workItem from="1718598892902" duration="2003000" />
+      <workItem from="1718601244438" duration="17000" />
+      <workItem from="1718602461056" duration="20000" />
+      <workItem from="1718602503550" duration="91000" />
+      <workItem from="1718607182222" duration="1015000" />
+      <workItem from="1718659593063" duration="9629000" />
+      <workItem from="1718673567414" duration="620000" />
+      <workItem from="1718698428225" duration="172000" />
+      <workItem from="1718746215216" duration="12000" />
+      <workItem from="1718812782545" duration="12529000" />
+      <workItem from="1718837879780" duration="10228000" />
+      <workItem from="1718862725498" duration="31000" />
+      <workItem from="1719252793778" duration="18000" />
+    </task>
+    <task id="LOCAL-00001" summary="добовление">
+      <created>1714641507192</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714641507192</updated>
+    </task>
+    <task id="LOCAL-00002" summary="добовление">
+      <created>1714850659018</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1714850659018</updated>
+    </task>
+    <task id="LOCAL-00003" summary="1">
+      <created>1714853060526</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1714853060526</updated>
+    </task>
+    <task id="LOCAL-00004" summary="база данных">
+      <created>1716044231012</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1716044231012</updated>
+    </task>
+    <task id="LOCAL-00005" summary="htnm;l">
+      <created>1716051382107</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1716051382108</updated>
+    </task>
+    <task id="LOCAL-00006" summary="htnm;l">
+      <created>1717279610162</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1717279610162</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="добовление" />
+    <MESSAGE value="1" />
+    <MESSAGE value="база данных" />
+    <MESSAGE value="htnm;l" />
+    <option name="LAST_COMMIT_MESSAGE" value="htnm;l" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/VKrq$main.coverage" NAME="main Coverage Results" MODIFIED="1718582722530" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/VKrq$main_1_.coverage" NAME="main(1) Coverage Results" MODIFIED="1718861436133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/VKrq$ai.coverage" NAME="ai Coverage Results" MODIFIED="1718576576378" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/VKrq$main__1_.coverage" NAME="main(1) Coverage Results" MODIFIED="1716384975035" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/VKrq$.coverage" NAME=" Coverage Results" MODIFIED="1717174988042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/VKrq$pytest_in_test_sample_py.coverage" NAME="pytest in test_sample.py Coverage Results" MODIFIED="1717184670871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+  </component>
+</project>
